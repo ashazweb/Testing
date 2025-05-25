@@ -1,0 +1,129 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #ffe6f0; /* Light pink background for the page */
+}
+
+.game {
+  position: relative;
+  width: 100vw;
+  height: 300px;
+  background: #fff0f5;
+  overflow: hidden;
+  border-bottom: 4px solid #ff69b4;
+}
+
+.character {
+  position: absolute;
+  left: 50px;
+  bottom: 0;
+  width: 50px;
+  height: 50px;
+  background-color: #ff69b4;
+}
+
+.jump {
+  animation: jump 0.6s ease-out;
+}
+
+@keyframes jump {
+  0%   { bottom: 0; }
+  30%  { bottom: 100px; }
+  50%  { bottom: 120px; }
+  70%  { bottom: 100px; }
+  100% { bottom: 0; }
+}
+
+.obstacle {
+  position: absolute;
+  bottom: 0;
+  left: 100%;
+  width: 30px;
+  height: 40px;
+  background-color: #ffb6c1;
+  animation: move 2s linear infinite;
+}
+
+@keyframes move {
+  0%   { left: 100%; }
+  100% { left: -30px; }
+}
+
+.game-over {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  border: 2px solid #ff69b4;
+  padding: 10px 20px;
+  border-radius: 10px;
+  color: #d6336c;
+}
+
+.show {
+  display: block;
+}
+
+/* ✅ Score Box - Top Right */
+.score-box {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 150px; /* width of the image */
+  height: 50px; /* height of the image */
+  background-color: #ff69b4; /* Solid fallback color */
+  background-image: url('pink-box.png'); /* Ensure this path is correct */
+  background-size: cover; /* Ensures the image fits inside the box */
+  color: #ffffff; /* White text color */
+  font-size: 24px; /* Larger font size */
+  text-align: center;
+  line-height: 50px; /* Vertically center the text */
+  padding: 0;
+  border: none;
+  border-radius: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1),
+              0 0 15px #ff69b4, /* Pink glow */
+              0 0 30px #ff69b4; /* Larger glow */
+  animation: pulse 1.5s infinite ease-in-out; /* Pulse animation */
+  z-index: 10;
+}
+
+/* Pulse animation for a glowing effect */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 15px #ff69b4, 0 0 30px #ff69b4;
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px #ff69b4, 0 0 50px #ff69b4;
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 15px #ff69b4, 0 0 30px #ff69b4;
+  }
+}
+
+/* Button Styling - Positioned at the top middle */
+.redirect-button {
+  position: absolute;
+  top: 20px;  /* Position at the top */
+  left: 50%;  /* Center horizontally */
+  transform: translateX(-50%); /* Offset to perfectly center */
+  padding: 15px 30px;
+  background-color: #ff69b4;
+  color: white;
+  font-size: 18px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease;
+  z-index: 15; /* Ensure it is on top of the game */
+}
+
+.redirect-button:hover {
+  background-color: #d6336c;
+}

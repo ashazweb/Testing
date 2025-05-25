@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Anime Dino Runner</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="game">
+    <div class="score-box" id="score">Score: 0</div>
+    <div class="character" id="character"></div>
+    <div class="obstacle" id="obstacle"></div>
+    <div class="game-over" id="gameOver">Game Over! Press Space to Try Again</div>
+  </div>
+
+  <!-- Button to go to the About Us page -->
+  <button class="redirect-button" id="redirectButton">About Us</button>
+
+  <script>
+    const character = document.getElementById("character");
+    const obstacle = document.getElementById("obstacle");
+    const gameOver = document.getElementById("gameOver");
+    const scoreDisplay = document.getElementById("score");
+
+    let isJumping = false;
+    let isAlive = true;
+    let score = 0;
+
+    // Score increases every 1 millisecond
+    const scoreInterval = setInterval(() => {
+      if (isAlive) {
+        score++;
+        scoreDisplay.textContent = `Score: ${score}`;
+      }
+    }, 1);  // Update every 1 millisecond
+
+    document.addEventListener("keydown", function(event) {
+      if (event.code === "Space") {
+        if (!isJumping && isAlive) {
+          character.classList.add("jump");
+          isJumping = true;
+          setTimeout(() => {
+            character.classList.remove("jump");
+            isJumping = false;
+          }, 600);
+        }
+        if (!isAlive) {
+          location.reload();
+        }
+      }
+    });
+
+    const checkCollision = setInterval(() => {
+      const charRect = character.getBoundingClientRect();
+      const obsRect = obstacle.getBoundingClientRect();
+
+      if (
+        charRect.right > obsRect.left &&
+        charRect.left < obsRect.right &&
+        charRect.bottom > obsRect.top
+      ) {
+        gameOver.classList.add("show");
+        obstacle.style.animation = "none";
+        isAlive = false;
+        clearInterval(scoreInterval);
+        clearInterval(checkCollision);
+      }
+    }, 10);
+
+    // Redirect button functionality
+    const redirectButton = document.getElementById("redirectButton");
+    redirectButton.addEventListener("click", () => {
+      window.location.href = "https://www.example.com"; // Change this URL to the "About Us" page you want
+    });
+  </script>
+</body>
+</html>
